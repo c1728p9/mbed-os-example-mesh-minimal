@@ -26,7 +26,21 @@ void trace_printer(const char* str) {
 }
 #endif // MBED_CONF_APP_TRACE
 
-LoWPANNDInterface mesh;
+#define SPI_MOSI   D11
+#define SPI_MISO   D12
+#define SPI_SCLK   D13
+#define SPI_CS     D10
+#define SPI_RST    D5
+#define SPI_SLP    D7
+#define SPI_IRQ    D9
+#define I2C_SDA    D14
+#define I2C_SCL    D15
+
+#include "NanostackRfPhyAtmel.h"
+NanostackRfPhyAtmel phy(SPI_MOSI, SPI_MISO, SPI_SCLK,
+                        SPI_CS, SPI_RST, SPI_SLP, SPI_IRQ,
+                        I2C_SDA, I2C_SCL);
+LoWPANNDInterface mesh(&phy);
 //ThreadInterface mesh;
 Serial output(USBTX, USBRX);
 
